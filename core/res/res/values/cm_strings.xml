@@ -228,6 +228,8 @@
     <string name="perf_profile_pwrsv">Power save</string>
     <string name="perf_profile_bal">Balanced</string>
     <string name="perf_profile_perf">Performance</string>
+    <string name="perf_profile_bias_power">Efficiency</string>
+    <string name="perf_profile_bias_perf">Quick</string>
 
     <!-- Theme installation error notification -->
     <string name="theme_install_error_title">Failed to install theme</string>
@@ -345,4 +347,16 @@
     <!-- Zen mode buttons -->
     <string name="silent_mode_priority">Priority</string>
     <string name="silent_mode_none">None</string>
+
+    <!-- Wifi Hotspot disabled due to subscription change -->
+    <string name="subscription_change_disabled_wifi_ap">Disabled Wi-Fi hotspot due to SIM subscription change</string>
+
+    <!-- WiFi turn off notification action text -->
+    <string name="notify_turn_wifi_off_title">Turn Wi-Fi off</string>
+
+    <!-- Third party keyguard permission label -->
+    <string name="permlab_thirdPartyKeyguard">third party lock screen</string>
+    <!-- Third party keyguard permission description -->
+    <string name="permdesc_thirdPartyKeyguard">Allows an app to be used as an insecure lock screen.</string>
+
 </resources>

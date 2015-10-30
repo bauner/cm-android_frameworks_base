@@ -1962,6 +1962,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     }
 
     public void updateSettings() {
+        Slog.i(TAG, "+++++ updateSettings() mUserRotationMode; " + mUserRotationMode + ", mUserRotation: " + mUserRotation);
         ContentResolver resolver = mContext.getContentResolver();
         boolean updateRotation = false;
         int mDeviceHardwareWakeKeys = mContext.getResources().getInteger(
@@ -2086,6 +2087,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
             WindowManagerPolicyControl.reloadFromSetting(mContext);
         }
+        Slog.i(TAG, "----- updateSettings() mUserRotationMode; " + mUserRotationMode + ", mUserRotation: " + mUserRotation + "updateRotation: " + updateRotation);
         if (updateRotation) {
             updateRotation(true);
         }
@@ -4007,7 +4009,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     int right = overscanLeft + mNavigationBarWidthForRotation[displayRotation];
                     mTmpNavigationFrame.set(0, 0, right, displayHeight);
                     mStableLeft = mStableFullscreenLeft = mTmpNavigationFrame.right;
-                    mStableFullscreenLeft = mTmpNavigationFrame.right;
                     if (transientNavBarShowing) {
                         mNavigationBarController.setBarShowingLw(true);
                     } else if (navVisible) {
@@ -4225,7 +4226,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
     }
 
-    private void applyStableConstraints(int sysui, int fl, Rect r) {
+    private void applyStableConstraints(int sysui, int fl, Rect r, Rect d) {
+        if (mNavigationBarLeftInLandscape) {
+            d.left = r.left;
+            r.left = 0;
+        }
+
         if ((sysui & View.SYSTEM_UI_FLAG_LAYOUT_STABLE) != 0) {
             // If app is requesting a stable layout, don't let the
             // content insets go below the stable values.
@@ -4465,7 +4471,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                         cf.right = mRestrictedScreenLeft + mRestrictedScreenWidth;
                         cf.bottom = mRestrictedScreenTop + mRestrictedScreenHeight;
                     }
-                    applyStableConstraints(sysUiFl, fl, cf);
+                    applyStableConstraints(sysUiFl, fl, cf, df);
                     if (adjust != SOFT_INPUT_ADJUST_NOTHING) {
                         vf.left = mCurLeft;
                         vf.top = mCurTop;
@@ -4579,7 +4585,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                             + mRestrictedScreenHeight;
                 }
 
-                applyStableConstraints(sysUiFl, fl, cf);
+                applyStableConstraints(sysUiFl, fl, cf, df);
 
                 if (adjust != SOFT_INPUT_ADJUST_NOTHING) {
                     vf.left = mCurLeft;
@@ -6333,7 +6339,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
     @Override
     public int rotationForOrientationLw(int orientation, int lastRotation) {
-        if (false) {
+        if (true) {
             Slog.v(TAG, "rotationForOrientationLw(orient="
                         + orientation + ", last=" + lastRotation
                         + "); user=" + mUserRotation + " "
@@ -6419,13 +6425,14 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     mAllowAllRotations = mContext.getResources().getBoolean(
                             com.android.internal.R.bool.config_allowAllRotations) ? 1 : 0;
                 }
-                boolean allowed = true;
-                if (orientation != ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
-                        && orientation != ActivityInfo.SCREEN_ORIENTATION_FULL_USER) {
-                   allowed = RotationPolicy.isRotationAllowed(sensorRotation,
-                           mUserRotationAngles, mAllowAllRotations != 0);
-                }
-                if (allowed) {
+
+                // use sensor orientation if it's forced, or if the user has allowed it
+                boolean useSensorRotation =
+                        orientation == ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
+                        || orientation == ActivityInfo.SCREEN_ORIENTATION_FULL_USER
+                        || RotationPolicy.isRotationAllowed(sensorRotation, mUserRotationAngles,
+                                mAllowAllRotations != 0);
+                if (useSensorRotation) {
                     preferredRotation = sensorRotation;
                 } else {
                     preferredRotation = lastRotation;
@@ -6546,6 +6553,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     // User rotation: to be used when all else fails in assigning an orientation to the device
     @Override
     public void setUserRotationMode(int mode, int rot) {
+        Slog.i(TAG, "setUserRotationMode() called with " + "mode = [" + mode + "], rot = [" + rot + "]");
         ContentResolver res = mContext.getContentResolver();
 
         // mUserRotationMode and mUserRotation will be assigned by the content observer

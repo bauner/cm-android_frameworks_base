@@ -1234,6 +1234,7 @@ public final class Settings {
             MOVED_TO_SECURE.add(Secure.LOCK_PATTERN_ENABLED);
             MOVED_TO_SECURE.add(Secure.LOCK_PATTERN_VISIBLE);
             MOVED_TO_SECURE.add(Secure.LOCK_PATTERN_TACTILE_FEEDBACK_ENABLED);
+            MOVED_TO_SECURE.add(Secure.LOCK_PASS_TO_SECURITY_VIEW);
             MOVED_TO_SECURE.add(Secure.LOCK_PATTERN_SIZE);
             MOVED_TO_SECURE.add(Secure.LOCK_DOTS_VISIBLE);
             MOVED_TO_SECURE.add(Secure.LOCK_SHOW_ERROR_PATH);
@@ -2189,8 +2190,10 @@ public final class Settings {
         /**
          * Quick Settings Quick Pulldown
          * 0 = off, 1 = right, 2 = left
+         * @deprecated Use {@link cyanogenmod.providers.CMSettings.System#QS_QUICK_PULLDOWN} instead
          * @hide
          */
+        @Deprecated
         public static final String QS_QUICK_PULLDOWN = "qs_quick_pulldown";
 
         /**
@@ -2826,6 +2829,13 @@ public final class Settings {
          */
         public static final String NOTIFICATION_LIGHT_BRIGHTNESS_LEVEL =
                 "notification_light_brightness_level";
+
+        /**
+         * Whether to use the all the LEDs for the notifications or just one.
+         * @hide
+         */
+        public static final String NOTIFICATION_LIGHT_MULTIPLE_LEDS_ENABLE =
+                "notification_light_multiple_leds_enable";
 
         /**
          * Whether to allow notifications with the screen on or DayDreams.
@@ -3646,6 +3656,7 @@ public final class Settings {
             NONE_IS_SILENT,
             ALLOW_LIGHTS,
             NOTIFICATION_LIGHT_BRIGHTNESS_LEVEL,
+            NOTIFICATION_LIGHT_MULTIPLE_LEDS_ENABLE,
             NOTIFICATION_LIGHT_SCREEN_ON
         };
 
@@ -3947,6 +3958,7 @@ public final class Settings {
             MOVED_TO_LOCK_SETTINGS.add(Secure.LOCK_PATTERN_ENABLED);
             MOVED_TO_LOCK_SETTINGS.add(Secure.LOCK_PATTERN_VISIBLE);
             MOVED_TO_LOCK_SETTINGS.add(Secure.LOCK_PATTERN_TACTILE_FEEDBACK_ENABLED);
+            MOVED_TO_LOCK_SETTINGS.add(Secure.LOCK_PASS_TO_SECURITY_VIEW);
             MOVED_TO_LOCK_SETTINGS.add(Secure.LOCK_PATTERN_SIZE);
             MOVED_TO_LOCK_SETTINGS.add(Secure.LOCK_DOTS_VISIBLE);
             MOVED_TO_LOCK_SETTINGS.add(Secure.LOCK_SHOW_ERROR_PATH);
@@ -4720,6 +4732,12 @@ public final class Settings {
         @Deprecated
         public static final String
                 LOCK_PATTERN_TACTILE_FEEDBACK_ENABLED = "lock_pattern_tactile_feedback_enabled";
+
+        /**
+         * Whether keyguard will direct show security view (0 = false, 1 = true)
+         * @hide
+         */
+        public static final String LOCK_PASS_TO_SECURITY_VIEW = "lock_screen_pass_to_security_view";
 
         /**
          * Determines the width and height of the LockPatternView widget
@@ -5941,6 +5959,12 @@ public final class Settings {
         public static final String PRIVACY_GUARD_DEFAULT = "privacy_guard_default";
 
         /**
+         * Whether a notification should be shown if privacy guard is enabled
+         * @hide
+         */
+        public static final String PRIVACY_GUARD_NOTIFICATION = "privacy_guard_notification";
+
+        /**
          * Default theme to use.  If empty, use holo.
          * @hide
          */
@@ -5954,8 +5978,10 @@ public final class Settings {
          *
          * ex: mods_icons|mods_overlays|mods_homescreen
          *
+         * @deprecated Use {@link cyanogenmod.providers.CMSettings.Secure#DEFAULT_THEME_COMPONENTS}
          * @hide
          */
+        @Deprecated
         public static final String DEFAULT_THEME_COMPONENTS = "default_theme_components";
 
         /**
@@ -5984,8 +6010,10 @@ public final class Settings {
 
         /**
          * Global stats collection
+         * @deprecated Use {@link cyanogenmod.providers.CMSettings.Secure#STATS_COLLECTION}
          * @hide
          */
+        @Deprecated
         public static final String STATS_COLLECTION = "stats_collection";
 
         /**
@@ -6010,8 +6038,10 @@ public final class Settings {
 
         /**
          * Whether to show the brightness slider in quick settings panel.
+         * @deprecated Use {@link cyanogenmod.providers.CMSettings.Secure#QS_SHOW_BRIGHTNESS_SLIDER}
          * @hide
          */
+        @Deprecated
         public static final String QS_SHOW_BRIGHTNESS_SLIDER = "qs_show_brightness_slider";
 
         /**
@@ -6023,8 +6053,10 @@ public final class Settings {
         /**
          * Use "main" tiles on the first row of the quick settings panel
          * 0 = no, 1 = yes
+         * @deprecated Use {@link cyanogenmod.providers.CMSettings.Secure#QS_USE_MAIN_TILES}
          * @hide
          */
+        @Deprecated
         public static final String QS_USE_MAIN_TILES = "sysui_qs_main_tiles";
 
         /**
@@ -6035,8 +6067,10 @@ public final class Settings {
 
         /**
          * Custom navring actions
+         * @deprecated Use {@link cyanogenmod.providers.CMSettings.Secure#NAVIGATION_RING_TARGETS}
          * @hide
          */
+        @Deprecated
         public static final String[] NAVIGATION_RING_TARGETS = new String[] {
                 "navigation_ring_targets_0",
                 "navigation_ring_targets_1",
@@ -6055,8 +6089,10 @@ public final class Settings {
         /**
          * Whether to enable "advanced mode" for the current user.
          * Boolean setting. 0 = no, 1 = yes.
+         * @deprecated Use {@link cyanogenmod.providers.CMSettings.Secure#ADVANCED_MODE}
          * @hide
          */
+        @Deprecated
         public static final String ADVANCED_MODE = "advanced_mode";
 
         /**
@@ -6074,23 +6110,29 @@ public final class Settings {
         /**
          * The keyboard brightness to be used while the screen is on.
          * Valid value range is between 0 and {@link PowerManager#getMaximumKeyboardBrightness()}
+         * @deprecated Use {@link cyanogenmod.providers.CMSettings.Secure#KEYBOARD_BRIGHTNESS}
          * @hide
          */
+        @Deprecated
         public static final String KEYBOARD_BRIGHTNESS = "keyboard_brightness";
 
         /**
          * The button brightness to be used while the screen is on or after a button press,
          * depending on the value of {@link BUTTON_BACKLIGHT_TIMEOUT}.
          * Valid value range is between 0 and {@link PowerManager#getMaximumButtonBrightness()}
+         * @deprecated Use {@link cyanogenmod.providers.CMSettings.Secure#KEYBOARD_BRIGHTNESS}
          * @hide
          */
+        @Deprecated
         public static final String BUTTON_BRIGHTNESS = "button_brightness";
 
         /**
          * The time in ms to keep the button backlight on after pressing a button.
          * A value of 0 will keep the buttons on for as long as the screen is on.
+         * @deprecated Use {@link cyanogenmod.providers.CMSettings.Secure#BUTTON_BACKLIGHT_TIMEOUT}
          * @hide
          */
+        @Deprecated
         public static final String BUTTON_BACKLIGHT_TIMEOUT = "button_backlight_timeout";
 
         /**
@@ -6170,7 +6212,8 @@ public final class Settings {
             SLEEP_TIMEOUT,
             PRIVACY_GUARD_DEFAULT,
             ADVANCED_REBOOT,
-            DEVELOPMENT_SHORTCUT
+            DEVELOPMENT_SHORTCUT,
+            PRIVACY_GUARD_NOTIFICATION
         };
 
         /**

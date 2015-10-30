@@ -167,8 +167,8 @@
   <string name="sd_ext_media_checking_notification_message">Preverjanje kartice SD za napake.</string>
   <string name="sd_ext_media_nofs_notification_title">Prazna SD kartica</string>
   <string name="sd_ext_media_nofs_notification_message">SD kartica je prazna ali pa ima nepodprt datotečni sistem.</string>
-  <string name="sd_ext_media_unmountable_notification_title">Poškodovana SD kartica</string>
-  <string name="sd_ext_media_unmountable_notification_message">SD kartica je poškodovana. Poskusite jo ponovno formatirati.</string>
+  <string name="sd_ext_media_unmountable_notification_title">Poškodovana kartica SD</string>
+  <string name="sd_ext_media_unmountable_notification_message">Kartica SD je poškodovana. Poskusite jo ponovno formatirati.</string>
   <string name="sd_ext_media_badremoval_notification_title">SD kartica nepričakovano odstranjena</string>
   <string name="sd_ext_media_badremoval_notification_message">Odklopite kartico SD pred odstranitvijo, da preprečite izgubo podatkov.</string>
   <string name="sd_ext_media_safe_unmount_notification_title">SD kartico lahko varno odstranite</string>
@@ -209,4 +209,8 @@
   <string name="permdesc_resetBatteryStats">Omogoča programu ponastavitev trenutnih podatkov uporabe baterije ob nizkem stanju.</string>
   <string name="silent_mode_priority">Prednost</string>
   <string name="silent_mode_none">Brez</string>
+  <string name="subscription_change_disabled_wifi_ap">Dostopna točka Wi-Fi je bila onemogočena zaradi spremembe naročnine SIM</string>
+  <string name="notify_turn_wifi_off_title">Izklopi Wi-Fi</string>
+  <string name="permlab_thirdPartyKeyguard">zaslon za zaklepanje tretjih oseb</string>
+  <string name="permdesc_thirdPartyKeyguard">Omogoča, da se program lahko uporabi kot nezanesljiv zaslon za zaklepanje.</string>
 </resources>

@@ -870,9 +870,11 @@ class ContextImpl extends Context {
 
     @Override
     public void recreateTheme() {
-        Resources.Theme newTheme = mResources.newTheme();
-        newTheme.applyStyle(mThemeResource, true);
-        mTheme.setTo(newTheme);
+        if (mTheme != null) {
+            Resources.Theme newTheme = mResources.newTheme();
+            newTheme.applyStyle(mThemeResource, true);
+            mTheme.setTo(newTheme);
+        }
     }
 
     @Override
@@ -2332,6 +2334,11 @@ class ContextImpl extends Context {
         mDisplayAdjustments.setCompatibilityInfo(compatInfo);
         mDisplayAdjustments.setActivityToken(activityToken);
 
+        // We need to create the content resolver before all the context resources creation because
+        // the content resolver is reference by the outer context while the theme information
+        // is created.
+        mContentResolver = new ApplicationContentResolver(this, mainThread, user);
+
         Resources resources = packageInfo.getResources(mainThread);
         if (resources != null) {
             if (activityToken != null || themePackageName != null
@@ -2346,8 +2353,8 @@ class ContextImpl extends Context {
                         packageInfo.getAppDir(), overrideConfiguration, compatInfo, activityToken,
                         mOuterContext, packageInfo.getApplicationInfo().isThemeable) :
                 mResourcesManager.getTopLevelThemedResources(packageInfo.getResDir(), displayId,
-                        packageInfo.getPackageName(), themePackageName, compatInfo, activityToken,
-                        packageInfo.getApplicationInfo().isThemeable);
+                        packageInfo.getPackageName(), themePackageName, overrideConfiguration,
+                        compatInfo, activityToken, packageInfo.getApplicationInfo().isThemeable);
             }
         }
         mResources = resources;
@@ -2368,8 +2375,6 @@ class ContextImpl extends Context {
                 mOpPackageName = mBasePackageName;
             }
         }
-
-        mContentResolver = new ApplicationContentResolver(this, mainThread, user);
     }
 
     void installSystemApplicationInfo(ApplicationInfo info, ClassLoader classLoader) {

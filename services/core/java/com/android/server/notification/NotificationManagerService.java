@@ -225,6 +225,9 @@ public class NotificationManagerService extends SystemService {
     private boolean mAdjustableNotificationLedBrightness;
     private int mNotificationLedBrightnessLevel = LIGHT_BRIGHTNESS_MAXIMUM;
 
+    private boolean mMultipleNotificationLeds;
+    private boolean mMultipleLedsEnabledSetting = false;
+
     private boolean mScreenOnEnabled = false;
     private boolean mScreenOnDefault = false;
 
@@ -845,8 +848,11 @@ public class NotificationManagerService extends SystemService {
                 }
             } else if (action.equals(Intent.ACTION_USER_PRESENT)) {
                 // turn off LED when user passes through lock screen
-                mNotificationLight.turnOff();
-                mStatusBar.notificationLightOff();
+                // if lights with screen on is disabled.
+                if (!mScreenOnEnabled) {
+                    mNotificationLight.turnOff();
+                    mStatusBar.notificationLightOff();
+                }
             } else if (action.equals(Intent.ACTION_USER_SWITCHED)) {
                 // reload per-user settings
                 mSettingsObserver.update(null);
@@ -995,6 +1001,11 @@ public class NotificationManagerService extends SystemService {
                         Settings.System.NOTIFICATION_LIGHT_BRIGHTNESS_LEVEL),
                         false, this, UserHandle.USER_ALL);
             }
+            if (mMultipleNotificationLeds) {
+                resolver.registerContentObserver(Settings.System.getUriFor(
+                        Settings.System.NOTIFICATION_LIGHT_MULTIPLE_LEDS_ENABLE),
+                        false, this, UserHandle.USER_ALL);
+            }
             update(null);
         }
 
@@ -1039,6 +1050,13 @@ public class NotificationManagerService extends SystemService {
                 mNotificationLedBrightnessLevel = Settings.System.getIntForUser(resolver,
                         Settings.System.NOTIFICATION_LIGHT_BRIGHTNESS_LEVEL,
                         LIGHT_BRIGHTNESS_MAXIMUM, UserHandle.USER_CURRENT);
+            }
+
+            // Multiple LEDs enabled
+            if (mMultipleNotificationLeds) {
+                mMultipleLedsEnabledSetting = (Settings.System.getIntForUser(resolver,
+                        Settings.System.NOTIFICATION_LIGHT_MULTIPLE_LEDS_ENABLE,
+                        mMultipleNotificationLeds ? 1 : 0, UserHandle.USER_CURRENT) != 0);
             }
 
             // Notification lights with screen on
@@ -1175,6 +1193,8 @@ public class NotificationManagerService extends SystemService {
 
         mAdjustableNotificationLedBrightness = resources.getBoolean(
                 com.android.internal.R.bool.config_adjustableNotificationLedBrightness);
+        mMultipleNotificationLeds = resources.getBoolean(
+                com.android.internal.R.bool.config_multipleNotificationLeds);
 
         mUseAttentionLight = resources.getBoolean(R.bool.config_useAttentionLight);
 
@@ -3155,7 +3175,8 @@ public class NotificationManagerService extends SystemService {
             }
 
             // update the LEDs modes variables
-            mNotificationLight.setModes(mNotificationLedBrightnessLevel);
+            mNotificationLight.setModes(mNotificationLedBrightnessLevel,
+                    mMultipleLedsEnabledSetting);
 
             if (mNotificationPulseEnabled) {
                 // pulse repeatedly
