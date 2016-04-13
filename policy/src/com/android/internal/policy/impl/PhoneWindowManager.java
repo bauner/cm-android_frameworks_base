@@ -5389,7 +5389,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         if (isValidGlobalKey(keyCode)
                 && mGlobalKeyManager.shouldHandleGlobalKey(keyCode, event)) {
             if (isWakeKey) {
-                wakeUp(event.getEventTime(), mAllowTheaterModeWakeFromKey);
+                wakeUp(event.getEventTime(), mAllowTheaterModeWakeFromKey, true);
             }
             return result;
         }
@@ -5725,7 +5725,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
 
         if (isWakeKey) {
-            wakeUp(event.getEventTime(), mAllowTheaterModeWakeFromKey);
+            wakeUp(event.getEventTime(), mAllowTheaterModeWakeFromKey, true);
         }
 
         return result;
@@ -6071,15 +6071,24 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     }
 
     private void wakeUpFromPowerKey(long eventTime) {
-        wakeUp(eventTime, mAllowTheaterModeWakeFromPowerKey);
+        wakeUp(eventTime, mAllowTheaterModeWakeFromPowerKey, true);
     }
 
     private boolean wakeUp(long wakeTime, boolean wakeInTheaterMode) {
+        return wakeUp(wakeTime, wakeInTheaterMode, false);
+    }
+
+    private boolean wakeUp(long wakeTime, boolean wakeInTheaterMode,
+            boolean withProximityCheck) {
         if (!wakeInTheaterMode && isTheaterModeEnabled()) {
             return false;
         }
 
-        mPowerManager.wakeUp(wakeTime);
+        if (withProximityCheck) {
+            mPowerManager.wakeUpWithProximityCheck(wakeTime);
+        } else {
+            mPowerManager.wakeUp(wakeTime);
+        }
         return true;
     }
 
