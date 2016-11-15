@@ -259,10 +259,7 @@ class FileDescriptorInfo {
         path.compare(path.size() - kJarSuffix.size(), kJarSuffix.size(), kJarSuffix) == 0) {
       return true;
     }
-	ALOGW("Whitelist hack for xposed - always return true");
-//    return false;
-    return true;
-
+    return false;
   }
 
   // TODO: Call android::base::Readlink instead of copying the code here.
