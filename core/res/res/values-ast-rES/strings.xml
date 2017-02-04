@@ -850,6 +850,8 @@
   <!-- Message shown during fingerprint acquisision when the user moves their finger too slowly -->
   <string name="fingerprint_acquired_too_slow">Movisti\'l deu mui lento. Vuelvi intentalo.</string>
   <!-- Array containing custom messages shown during fingerprint acquisision from vendor.  Vendor is expected to add and translate these strings -->
+  <string-array name="fingerprint_acquired_vendor">
+    </string-array>
   <!-- Error message shown when the fingerprint hardware can't be accessed -->
   <string name="fingerprint_error_hw_not_available">El hardware pa buelgues dixitales nun ta disponible.</string>
   <!-- Error message shown when the fingerprint hardware has run out of room for storing fingerprints -->
@@ -865,6 +867,8 @@
   <!-- Template to be used to name enrolled fingerprints by default. -->
   <string name="fingerprint_name_template">Deu <xliff:g id="fingerId" example="1">%d</xliff:g></string>
   <!-- Array containing custom error messages from vendor.  Vendor is expected to add and translate these strings -->
+  <string-array name="fingerprint_error_vendor">
+    </string-array>
   <!-- Content description which should be used for the fingerprint icon. -->
   <string name="fingerprint_icon_content_description">Iconu de buelga</string>
   <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->

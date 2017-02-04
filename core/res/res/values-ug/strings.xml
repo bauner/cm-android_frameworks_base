@@ -741,6 +741,8 @@
   <!-- Message shown during fingerprint acquisision when the user removes their finger from the sensor too quickly -->
   <!-- Message shown during fingerprint acquisision when the user moves their finger too slowly -->
   <!-- Array containing custom messages shown during fingerprint acquisision from vendor.  Vendor is expected to add and translate these strings -->
+  <string-array name="fingerprint_acquired_vendor">
+    </string-array>
   <!-- Error message shown when the fingerprint hardware can't be accessed -->
   <!-- Error message shown when the fingerprint hardware has run out of room for storing fingerprints -->
   <!-- Error message shown when the fingerprint hardware timer has expired and the user needs to restart the operation. -->
@@ -749,6 +751,8 @@
   <!-- Generic error message shown when the fingerprint hardware can't recognize the fingerprint -->
   <!-- Template to be used to name enrolled fingerprints by default. -->
   <!-- Array containing custom error messages from vendor.  Vendor is expected to add and translate these strings -->
+  <string-array name="fingerprint_error_vendor">
+    </string-array>
   <!-- Content description which should be used for the fingerprint icon. -->
   <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
   <string name="permlab_readSyncSettings">قەدەمداش تەڭشىكىنى ئوقۇيدۇ</string>
