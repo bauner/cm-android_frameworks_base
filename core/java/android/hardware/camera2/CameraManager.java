@@ -89,35 +89,32 @@ public final class CameraManager {
 
             if (context.getResources().
                     getBoolean(R.bool.config_useWakeLockForFlashlight)) {
-                Looper looper = Looper.myLooper();
-                if (looper != null) {
-                    PowerManager powerManager = (PowerManager)context.
-                            getSystemService(Context.POWER_SERVICE);
-                    mFlashlightWakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
+                PowerManager powerManager = (PowerManager)context.
+                        getSystemService(Context.POWER_SERVICE);
+                mFlashlightWakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
 
-                    TorchCallback torchCallback = new CameraManager.TorchCallback() {
-                        @Override
-                        public void onTorchModeUnavailable(String cameraId) {
+                TorchCallback torchCallback = new CameraManager.TorchCallback() {
+                    @Override
+                    public void onTorchModeUnavailable(String cameraId) {
+                        if (mFlashlightWakeLock.isHeld()) {
+                            mFlashlightWakeLock.release();
+                        }
+                    }
+
+                    @Override
+                    public void onTorchModeChanged(String cameraId, boolean enabled) {
+                        if (enabled) {
+                            if (!mFlashlightWakeLock.isHeld()) {
+                                mFlashlightWakeLock.acquire();
+                            }
+                        } else {
                             if (mFlashlightWakeLock.isHeld()) {
                                 mFlashlightWakeLock.release();
                             }
                         }
-
-                        @Override
-                        public void onTorchModeChanged(String cameraId, boolean enabled) {
-                            if (enabled) {
-                                if (!mFlashlightWakeLock.isHeld()) {
-                                    mFlashlightWakeLock.acquire();
-                                }
-                            } else {
-                                if (mFlashlightWakeLock.isHeld()) {
-                                    mFlashlightWakeLock.release();
-                                }
-                            }
-                        }
-                    };
-                    registerTorchCallback(torchCallback, new Handler(looper));
-                }
+                    }
+                };
+                registerTorchCallback(torchCallback, null);
             }
         }
     }
