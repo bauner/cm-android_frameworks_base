@@ -299,6 +299,7 @@
          [CHAR LIMIT=20] -->
   <!-- Notification text: when GPS is getting a fix [CHAR LIMIT=50] -->
   <!-- Notification text: when GPS has found a fix [CHAR LIMIT=50] -->
+  <string name="gps_notification_found_text">Allugamientu afitáu pol GPS</string>
   <!-- Accessibility text describing the presence of active location requests by one or more apps -->
   <!-- Content description of the clear button in the notification panel for accessibility (not shown on the screen). [CHAR LIMIT=NONE] -->
   <string name="accessibility_clear_all">Llimpiar tolos avisos.</string>
@@ -309,8 +310,11 @@
          for its own notifications [CHAR LIMIT=NONE] -->
   <string name="status_bar_notification_app_settings_title">Axustes de <xliff:g id="app_name" example="Calendar">%s</xliff:g></string>
   <!-- Description of the button in the phone-style notification panel that controls auto-rotation, when auto-rotation is on. [CHAR LIMIT=NONE] -->
+  <string name="accessibility_rotation_lock_off">La pantalla voltiará automáticamente.</string>
   <!-- Description of the button in the phone-style notification panel that controls auto-rotation, when auto-rotation is off. [CHAR LIMIT=NONE] -->
+  <string name="accessibility_rotation_lock_on_landscape">La pantalla ta bloquiada en mou horizontal.</string>
   <!-- Description of the button in the phone-style notification panel that controls auto-rotation, when auto-rotation is off. [CHAR LIMIT=NONE] -->
+  <string name="accessibility_rotation_lock_on_portrait">La pantalla ta bloquiada en mou vertical.</string>
   <!-- Announcement made when the screen is rotating automatically again (not shown on the screen). [CHAR LIMIT=NONE] -->
   <!-- Announcement made when the rotation lock state changes to landscape only (not shown on the screen). [CHAR LIMIT=NONE] -->
   <!-- Announcement made when the rotation lock state changes to portrait only (not shown on the screen).  [CHAR LIMIT=NONE] -->
@@ -378,6 +382,7 @@
   <!-- QuickSettings: Brightness dialog auto brightness button [CHAR LIMIT=NONE] -->
   <string name="quick_settings_brightness_dialog_auto_brightness_label">AUTO</string>
   <!-- QuickSettings: Label for the toggle that controls whether display inversion is enabled. [CHAR LIMIT=NONE] -->
+  <string name="quick_settings_inversion_label">Invertir colores</string>
   <!-- QuickSettings: Label for the toggle that controls whether display color correction is enabled. [CHAR LIMIT=NONE] -->
   <string name="quick_settings_color_space_label">Mou de correición de color</string>
   <!-- QuickSettings: Control panel: Label for button that navigates to settings. [CHAR LIMIT=NONE] -->
@@ -454,8 +459,11 @@
   <!-- Interruption level: Priority. [CHAR LIMIT=40] -->
   <!-- Interruption level: Alarms only. [CHAR LIMIT=40] -->
   <!-- Interruption level: None.  Optimized for narrow two-line display. [CHAR LIMIT=40] -->
+  <string name="interruption_level_none_twoline">Silenciu\ntotal</string>
   <!-- Interruption level: Priority.  Optimized for narrow two-line display. [CHAR LIMIT=40] -->
+  <string name="interruption_level_priority_twoline">Namái\nprioridá</string>
   <!-- Interruption level: Alarms only.  Optimized for narrow two-line display. [CHAR LIMIT=40] -->
+  <string name="interruption_level_alarms_twoline">Namái\nalarmes</string>
   <!-- Indication on the keyguard that is shown when the device is charging. [CHAR LIMIT=40]-->
   <!-- Indication on the keyguard that is shown when the device is charging rapidly. Should match keyguard_plugged_in_charging_fast [CHAR LIMIT=40]-->
   <!-- Indication on the keyguard that is shown when the device is charging slowly. Should match keyguard_plugged_in_charging_slowly [CHAR LIMIT=40]-->
@@ -597,6 +605,9 @@
   <!-- Name of a quick settings tile controlled by broadcast -->
   <string name="broadcast_tile">Caxella de tresmisión</string>
   <!-- For preview release. DO NOT TRANSLATE -->
+  <string name="regrettable_lack_of_easter_egg">
+        ¯\\_(ツ)_/¯
+    </string>
   <!-- Warning text when an alarm might be silenced by Do Not Disturb [CHAR LIMIT=NONE] -->
   <!-- Warning text when an alarm might be silenced by Do Not Disturb due to a time-based condition [CHAR LIMIT=NONE] -->
   <!-- Alarm template for near alarms [CHAR LIMIT=25] -->
