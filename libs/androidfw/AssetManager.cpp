@@ -421,7 +421,7 @@ String8 AssetManager::getPkgName(const char *apkPath) {
 
         Asset* manifestAsset = openNonAssetInPathLocked(kAndroidManifest, Asset::ACCESS_BUFFER, ap);
         tree.setTo(manifestAsset->getBuffer(true),
-                       manifestAsset->getLength());
+                       manifestAsset->getLength(), true);
         tree.restart();
 
         size_t len;
